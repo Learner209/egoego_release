@@ -4,6 +4,10 @@ import trimesh
 import imageio 
 import numpy as np 
 
+BLENDER_PATH="/mnt/homes/minghao/robotflow/egoego/assets/blender/blender-4.2.0-linux-x64/blender"
+BLENDER_VIS_CMP_HUMAN_UTILS_PATH="/mnt/homes/minghao/robotflow/egoego/third_party/egoego/egoego/vis/blender_vis_cmp_human_utils.py"
+BLENDER_VIS_HUMAN_AND_HEADPOSE_UTILS_PATH="/mnt/homes/minghao/robotflow/egoego/third_party/egoego/egoego/vis/blender_vis_human_and_headpose_utils.py"
+
 def images_to_video(img_folder, output_vid_file):
     os.makedirs(img_folder, exist_ok=True)
 
@@ -42,7 +46,7 @@ def run_blender_rendering_and_save2video(obj_folder_path, out_folder_path, out_v
     if not os.path.exists(vid_folder):
         os.makedirs(vid_folder)
     
-    subprocess.call("/home/jiaman/Desktop/blender-3.2.0-linux-x64/blender \
+    subprocess.call(f"{BLENDER_PATH} \
     -P egoego/vis/blender_vis_human_utils.py \
     -b -- --folder "+obj_folder_path+" --scene "+\
     scene_blend_path+" --out-folder "+out_folder_path+" --material-color "+mat_color, shell=True)    
@@ -64,8 +68,8 @@ def run_blender_rendering_and_save2video_cmp(obj_folder_path, gt_obj_folder_path
     if not os.path.exists(vid_folder):
         os.makedirs(vid_folder)
 
-    subprocess.call("/viscam/u/jiamanli/blender-3.2.0-linux-x64/blender \
-    -P /viscam/u/jiamanli/github/egoego/egoego/vis/blender_vis_cmp_human_utils.py \
+    subprocess.call(f"{BLENDER_PATH} \
+    -P {BLENDER_VIS_CMP_HUMAN_UTILS_PATH} \
     -b -- --folder "+obj_folder_path+" --gt-folder "+gt_obj_folder_path+" --scene "+\
     scene_blend_path+" --out-folder "+out_folder_path+" --material-color "+mat_color, shell=True)    
 
@@ -84,13 +88,13 @@ def run_blender_rendering_and_save2video_head_pose(npy_path, out_folder_path, ou
     img_out_folder_path = out_folder_path.replace("objs", "imgs")
 
     if vis_head_only:
-        subprocess.call("/viscam/u/jiamanli/blender-3.2.0-linux-x64/blender \
-        -P /viscam/u/jiamanli/github/egoego/egoego/vis/blender_vis_human_and_headpose_utils.py \
+        subprocess.call(f"{BLENDER_PATH} \
+        -P {BLENDER_VIS_HUMAN_AND_HEADPOSE_UTILS_PATH} \
         -b -- --folder "+out_folder_path+" --scene "+\
         scene_blend_path+" --out-folder "+img_out_folder_path+" --head-path "+npy_path+" --vis_head_only", shell=True)   
     else:
-        subprocess.call("/viscam/u/jiamanli/blender-3.2.0-linux-x64/blender \
-        -P /viscam/u/jiamanli/github/egoego/egoego/vis/blender_vis_human_and_headpose_utils.py \
+        subprocess.call(f"{BLENDER_PATH} \
+        -P {BLENDER_VIS_HUMAN_AND_HEADPOSE_UTILS_PATH} \
         -b -- --folder "+out_folder_path+" --scene "+\
         scene_blend_path+" --out-folder "+img_out_folder_path+" --head-path "+npy_path, shell=True)    
 
