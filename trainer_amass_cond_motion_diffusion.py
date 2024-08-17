@@ -1,5 +1,6 @@
 import argparse
 import os
+import os.path as osp
 from pathlib import Path
 import yaml
 
@@ -18,7 +19,7 @@ from egoego.data.amass_diffusion_dataset import AMASSDataset, quat_ik_torch, run
 
 from egoego.model.transformer_cond_diffusion_model import CondGaussianDiffusion
 
-from egoego.vis.blender_vis_mesh_motion import run_blender_rendering_and_save2video, save_verts_faces_to_mesh_file
+from egoego.vis.blender_vis_mesh_motion import run_blender_rendering_and_save2video, save_verts_faces_to_mesh_file, BLENDER_UTILS_PATH
 from egoego.vis.pose import show3Dpose_animation_smpl22
 
 from egoego.lafan1.utils import rotate_at_frame_smplh
@@ -376,8 +377,8 @@ class Trainer(object):
         # For visualizing human mesh only 
         save_verts_faces_to_mesh_file(mesh_verts.data.cpu().numpy()[0], \
         mesh_faces.data.cpu().numpy(), mesh_save_folder)
-        run_blender_rendering_and_save2video(mesh_save_folder, \
-        out_rendered_img_folder, out_vid_file_path)
+        # run_blender_rendering_and_save2video(mesh_save_folder, \
+        # out_rendered_img_folder, out_vid_file_path, vis_head_only=False, scene_blend_path=osp.join(BLENDER_UTILS_PATH, "floor_colorful_mat_human_w_head_pose_hres.blend")))
 
         return mesh_jnts, mesh_verts 
 
