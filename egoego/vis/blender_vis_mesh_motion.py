@@ -3,10 +3,14 @@ import subprocess
 import trimesh 
 import imageio 
 import numpy as np 
+import os.path as osp
 
-BLENDER_PATH="/mnt/homes/minghao/robotflow/egoego/assets/blender/blender-4.2.0-linux-x64/blender"
+BLENDER_PATH="/mnt/homes/minghao/robotflow/egoego/assets/blender/blender-3.6.13-linux-x64/blender"
 BLENDER_VIS_CMP_HUMAN_UTILS_PATH="/mnt/homes/minghao/robotflow/egoego/third_party/egoego/egoego/vis/blender_vis_cmp_human_utils.py"
 BLENDER_VIS_HUMAN_AND_HEADPOSE_UTILS_PATH="/mnt/homes/minghao/robotflow/egoego/third_party/egoego/egoego/vis/blender_vis_human_and_headpose_utils.py"
+BLENDER_VIS_HUMAN_UTILS_PATH="/mnt/homes/minghao/robotflow/egoego/third_party/egoego/egoego/vis/blender_vis_human_utils.py"
+
+BLENDER_UTILS_PATH="/mnt/homes/minghao/robotflow/egoego/third_party/egoego/utils/blender_utils"
 
 def images_to_video(img_folder, output_vid_file):
     os.makedirs(img_folder, exist_ok=True)
@@ -47,7 +51,7 @@ def run_blender_rendering_and_save2video(obj_folder_path, out_folder_path, out_v
         os.makedirs(vid_folder)
     
     subprocess.call(f"{BLENDER_PATH} \
-    -P egoego/vis/blender_vis_human_utils.py \
+    -P {BLENDER_VIS_HUMAN_UTILS_PATH} \
     -b -- --folder "+obj_folder_path+" --scene "+\
     scene_blend_path+" --out-folder "+out_folder_path+" --material-color "+mat_color, shell=True)    
 
