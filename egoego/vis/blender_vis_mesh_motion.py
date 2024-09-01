@@ -3,7 +3,8 @@ import subprocess
 import trimesh 
 import imageio 
 import numpy as np 
-from egoego.config import default_cfg as CFG
+from egoego.config import get_cfg_defaults
+CFG = get_cfg_defaults()
 
 def images_to_video(img_folder, output_vid_file):
     os.makedirs(img_folder, exist_ok=True)
