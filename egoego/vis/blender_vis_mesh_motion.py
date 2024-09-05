@@ -3,8 +3,12 @@ import subprocess
 import trimesh 
 import imageio 
 import numpy as np 
-from egoego.config import get_cfg_defaults
-CFG = get_cfg_defaults()
+from egoego.config import make_cfg, CONFIG_FILE
+
+local_config_file = CONFIG_FILE
+CFG = make_cfg(config_name="defaults", config_file=local_config_file, cli_args=[])
+
+
 
 def images_to_video(img_folder, output_vid_file):
     os.makedirs(img_folder, exist_ok=True)
